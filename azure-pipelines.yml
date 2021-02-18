@@ -71,12 +71,12 @@ stages:
             displayName: Update the web app with the new container
             inputs:
               appName: $(WebAppName)
-              azureSubscription: 'Azure Connection'
+              azureSubscription: 'Devops To Azure connection'
               imageName: $(RegistryName)/$(webRepository):$(build.buildId)
           - task: AzureAppServiceSettings@1
             displayName: Update web app connection string
             inputs:
-              azureSubscription: 'Azure Connection'
+              azureSubscription: 'Devops To Azure connection'
               appName: $(WebAppName)
               resourceGroupName: 'java-containers-cicd-rg'
               connectionStrings: |
