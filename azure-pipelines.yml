@@ -50,15 +50,28 @@ stages:
           target/myshuttledev*.war
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
-    - task: AzureFileCopy@4
-      displayName: Copy WAR file to staging directory
+    - task: UsePythonVersion@0
+      displayName: 'Set Python 3.8.3'
       inputs:
-        SourcePath: '$(build.sourcesdirectory)'
-        azureSubscription: 'Sottoscrizione di Azure 1(4f7f1793-c97f-4da9-a37d-b500d6d72d84)'
-        Destination: 'AzureBlob'
-        storage: 'mystorageaccount11706'
-        ContainerName: 'sticazzi'
-        BlobPrefix: '/mnt/sourceDir'
+        versionSpec: 3.8.3
+        addToPath: true
+      name: pyTools
+    - script: $(pyTools.pythonLocation)/bin/pip3 install azure-storage-file-share
+      displayName: Install azure-storage-file-share module        
+    - task: PythonScript@0
+      displayName: Show files and directories inside of File Share
+      inputs:
+        scriptSource: 'inline'
+        script: |
+          import platform
+          from azure.storage.fileshare import ShareDirectoryClient
+
+          connection_string = "DefaultEndpointsProtocol=https;AccountName=<storage-name>;AccountKey=<access-key>==;EndpointSuffix=core.windows.net"
+          parent_dir = ShareDirectoryClient.from_connection_string(conn_str=connection_string, share_name=<file-share-name>, directory_path="")
+
+          my_list = list(parent_dir.list_directories_and_files())
+          print(my_list)
+          print(platform.python_version()
     - task: Docker@2
       displayName: Build and push Java container image to registry
       inputs:
