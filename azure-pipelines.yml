@@ -51,9 +51,9 @@ stages:
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
     - task: UsePythonVersion@0
-      displayName: 'Set Python 3.8.3'
+      displayName: 'install azure storage file share python module'
       inputs:
-        versionSpec: 3.8.3
+        #versionSpec: 3.8.3
         addToPath: true
       name: pyTools
     - script: $(pyTools.pythonLocation)/bin/pip3 install azure-storage-file-share
