@@ -50,6 +50,16 @@ stages:
           target/myshuttledev*.war
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
+- stage: PostBuild
+  displayName: anal
+  jobs:  
+  - job: analyze
+    displayName: analyze
+    pool:
+      vmImage: $(vmImageName)
+    variables:
+    - group: Release
+    steps:
     - task: UsePythonVersion@0
       displayName: 'install azure storage file share python module'
       inputs:
@@ -69,7 +79,7 @@ stages:
           #connection_string = "DefaultEndpointsProtocol=https;AccountName=mystorageaccount11706;AccountKey=$(soccmel);EndpointSuffix=core.windows.net"
           #parent_dir = ShareDirectoryClient.from_connection_string(conn_str=connection_string, share_name=aci-share-cicd, directory_path="")
 
-          print($(soccmel))
+          print("$(soccmel)")
           #my_list = list(parent_dir.list_directories_and_files())
           #print(my_list)
           print(platform.python_version()
