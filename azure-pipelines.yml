@@ -50,6 +50,15 @@ stages:
           target/myshuttledev*.war
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
+    - task: AzureFileCopy@4
+      displayName: Copy WAR file to staging directory
+      inputs:
+        SourcePath: '$(build.sourcesdirectory)'
+        azureSubscription: 'Sottoscrizione di Azure 1(4f7f1793-c97f-4da9-a37d-b500d6d72d84)'
+        Destination: 'AzureBlob'
+        storage: 'mystorageaccount11706'
+        ContainerName: 'sticazzi'
+        BlobPrefix: '/mnt/sourceDir''
     - task: Docker@2
       displayName: Build and push Java container image to registry
       inputs:
