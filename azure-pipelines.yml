@@ -79,7 +79,7 @@ stages:
           #connection_string = "DefaultEndpointsProtocol=https;AccountName=mystorageaccount11706;AccountKey=$(soccmel);EndpointSuffix=core.windows.net"
           #parent_dir = ShareDirectoryClient.from_connection_string(conn_str=connection_string, share_name=aci-share-cicd, directory_path="")
 
-          print(platform.python_version()
+          print(platform.python_version())
           print('$(soccmel)')
           #my_list = list(parent_dir.list_directories_and_files())
           #print(my_list)
