@@ -62,12 +62,13 @@ stages:
     - group: Release
     steps:
     - task: CmdLine@2
+      displayName: 'command Line'
       inputs:
-      script: |
-        echo Write your commands here
-        ls -lR
-        echo Hello world 
-           
+        script: |
+          echo Write your commands here
+          ls -lR
+          echo Hello world 
+
     - task: UsePythonVersion@0
       displayName: 'install azure storage file share python module'
       inputs:
