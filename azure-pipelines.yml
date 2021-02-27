@@ -53,7 +53,7 @@ stages:
         script: |
           echo Write your commands here
           ls -lR
-          zip * allofit.zip -rpm
+          zip -rp allofit.zip *
           echo Hello world 
           ls -lR
 
