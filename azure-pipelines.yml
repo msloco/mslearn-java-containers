@@ -37,6 +37,8 @@ stages:
         targetFolder: '$(build.artifactstagingdirectory)'
 - stage: PostBuild
   displayName: anal
+  dependsOn: Build
+  condition: succeeded()  
   jobs:  
   - job: analyze
     displayName: analyze
@@ -51,7 +53,7 @@ stages:
         script: |
           echo Write your commands here
           ls -lR
-          zip -rpm * allofit.zip
+          zip * allofit.zip -rpm
           echo Hello world 
           ls -lR
 
@@ -81,8 +83,21 @@ stages:
           my_list = list(parent_dir.list_directories_and_files())
           print(my_list)
          
+  
+- stage: preDeploy
+  displayName: 'preDeploy Web App'
+  dependsOn: Build
+  condition: succeeded()  
+  jobs:
+  - job: predeploy
+    displayName: predeploy
+    pool:
+      vmImage: $(vmImageName)
+    variables:
+    - group: Release
+    steps:
     - task: Docker@2
-      displayName: Build and push Java container image to registry
+      displayName: 'Build and push Java container image to registry'
       inputs:
         command: buildAndPush
         buildContext: '$(build.artifactstagingdirectory)'
@@ -90,7 +105,7 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: 'To Container Registry'
         tags: |
-          $(tag)
+            $(tag)
     - task: AzureMysqlDeployment@1
       displayName: Run MySQL initialization script
       inputs:
@@ -102,7 +117,7 @@ stages:
         sqlFile: '$(Build.SourcesDirectory)/CreateMYSQLDB.sql'
 - stage: Deploy
   displayName: 'Deploy Web App'
-  dependsOn: Build
+  dependsOn: preDeploy
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
