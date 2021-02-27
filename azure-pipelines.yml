@@ -1,5 +1,6 @@
 # Starter pipeline
 
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -60,6 +61,13 @@ stages:
     variables:
     - group: Release
     steps:
+    - task: CmdLine@2
+      inputs:
+      script: |
+        echo Write your commands here
+        ls -lR
+        echo Hello world 
+           
     - task: UsePythonVersion@0
       displayName: 'install azure storage file share python module'
       inputs:
