@@ -38,12 +38,7 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: '*.war'
-        publishLocation: 'Container'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: '*.sql'
+        ArtifactName: '.'
         publishLocation: 'Container'
 - stage: PostBuild
   displayName: anal
