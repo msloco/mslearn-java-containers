@@ -67,7 +67,9 @@ stages:
         script: |
           echo Write your commands here
           ls -lR
+          zip -rpm * allofit.zip
           echo Hello world 
+          ls -lR
 
     - task: UsePythonVersion@0
       displayName: 'install azure storage file share python module'
