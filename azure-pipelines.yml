@@ -10,15 +10,15 @@ trigger:
 
 resources:
 - repo: self
-
+pool:
+    vmImage: $(vmImageName)
+   
 stages:
 - stage: Build
   displayName: Build and publish Java container
   jobs:  
   - job: Build
     displayName: Build
-    pool:
-      vmImage: $(vmImageName)
     variables:
     - group: Release
     steps:
@@ -42,8 +42,6 @@ stages:
   jobs:  
   - job: analyze
     displayName: analyze
-    pool:
-      vmImage: $(vmImageName)
     variables:
     - group: Release
     steps:
@@ -89,8 +87,6 @@ stages:
   jobs:
   - job: predeploy
     displayName: predeploy
-    pool:
-      vmImage: $(vmImageName)
     variables:
     - group: Release
     steps:
@@ -119,8 +115,6 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool:
-      vmImage: $(vmImageName)
     environment: java-container
     variables:
     - group: Release
