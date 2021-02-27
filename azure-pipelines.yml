@@ -51,11 +51,9 @@ stages:
       displayName: 'command Line'
       inputs:
         script: |
-          echo Write your commands here
-          ls -lR
+          echo ZIPPING
           zip -rp allofit.zip *
-          echo Hello world 
-          ls -lR
+          echo ZIPPED 
 
     - task: UsePythonVersion@0
       displayName: 'install azure storage file share python module'
