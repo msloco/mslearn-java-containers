@@ -35,6 +35,16 @@ stages:
           target/myshuttledev*.war
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '*.war'
+        publishLocation: 'Container'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '*.sql'
+        publishLocation: 'Container'
 - stage: PostBuild
   displayName: anal
   dependsOn: Build
