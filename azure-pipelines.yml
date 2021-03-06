@@ -102,6 +102,14 @@ stages:
         downloadType: 'single'
         artifactName: 'MyBuildOutputs'
         downloadPath: '$(build.artifactstagingdirectory)'
+    - task: CopyFiles@2
+      displayName: Copy WAR file to target directory
+      inputs:
+        sourceFolder: '$(build.artifactstagingdirectory)'
+        contents: |
+          MyBuildOutputs/myshuttledev*.war
+          *.sql
+        targetFolder: '$(build.artifactstagingdirectory)'
     - task: Docker@2
       displayName: 'Build and push Java container image to registry'
       inputs:
