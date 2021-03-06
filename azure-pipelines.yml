@@ -36,6 +36,7 @@ stages:
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
+
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'MyBuildOutputs'
@@ -95,6 +96,12 @@ stages:
     variables:
     - group: Release
     steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'MyBuildOutputs'
+        downloadPath: '$(build.artifactstagingdirectory)'
     - task: Docker@2
       displayName: 'Build and push Java container image to registry'
       inputs:
