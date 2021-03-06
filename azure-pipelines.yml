@@ -106,7 +106,7 @@ stages:
         contents: |
           MyBuildOutputs/*.sql
           MyBuildOutputs/target/*.war
-        targetFolder: '$(build.artifactstagingdirectory)'
+        targetFolder: '$(build.artifactstagingdirectory)/target/'
         flattenFolders: true
     - task: Docker@2
       displayName: 'Build and push Java container image to registry'
