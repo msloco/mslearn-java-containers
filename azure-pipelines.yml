@@ -73,8 +73,6 @@ stages:
         script: |
           import platform
           from azure.storage.fileshare import ShareDirectoryClient
-
-
           print(platform.python_version())
           
           connection_string = "DefaultEndpointsProtocol=https;AccountName=mystorageaccount11706;AccountKey=$(soccmel);EndpointSuffix=core.windows.net"
@@ -108,7 +106,8 @@ stages:
         contents: |
           MyBuildOutputs/*.sql
           MyBuildOutputs/target/*.war
-        targetFolder: '$(build.artifactstagingdirectory)/../'
+        targetFolder: '$(build.artifactstagingdirectory)'
+        flattenFolders: true
     - task: Docker@2
       displayName: 'Build and push Java container image to registry'
       inputs:
