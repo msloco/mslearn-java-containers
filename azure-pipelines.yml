@@ -36,7 +36,6 @@ stages:
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
-
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'MyBuildOutputs'
@@ -107,6 +106,8 @@ stages:
       inputs:
         sourceFolder: '$(build.artifactstagingdirectory)'
         contents: |
+          *.war
+          target/*.war
           MyBuildOutputs/myshuttledev*.war
           *.sql
         targetFolder: '$(build.artifactstagingdirectory)'
