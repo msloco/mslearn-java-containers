@@ -38,7 +38,7 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: '.'
+        ArtifactName: 'MyBuildOutputs'
         publishLocation: 'Container'
 - stage: PostBuild
   displayName: anal
